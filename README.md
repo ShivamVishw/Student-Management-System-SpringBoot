@@ -1,5 +1,7 @@
 # Student-Management-System-SpringBoot
 
+<strong><bold>Used Gradle build automation tool</bold></strong>
+
 * LIST OF STUDENTS
 
 ![Screenshot from 2023-04-07 20-17-12](https://user-images.githubusercontent.com/106417521/230630020-7b2e666a-dabc-49d4-a31f-1488d1eb6484.png)
