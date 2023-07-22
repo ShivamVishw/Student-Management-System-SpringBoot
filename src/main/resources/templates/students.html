@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Student Management System</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body style="background-image: url('https://imgs.search.brave.com/UeOPdKP6eLZ5rtjg7rSPy2ZEv_mHtbYWYU7A3Z394fw/rs:fit:1200:1080:1/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJmb3J1LmNv/bS93cC1jb250ZW50/L3VwbG9hZHMvMjAy/MS8wMi9XYWxscGFw/ZXItQmxhY2stQW5k/LVdoaXRlLUxhcHRv/cC1Db21wdXRlci1L/ZXlib2FyZHMtVGVj/aDQzLmpwZw'); background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;padding-top:10px">
+
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand " href="#">Student Management System </a>
+
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item" style="font-size:20px">
+        <a class="nav-link" th:href="@{/students}">Student Record</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+	
+	
+	<br>
+	<div class="container">
+		<div class="row">
+			
+			<h1 style="padding-left:12px; color:#D3D3D3">List Students</h1>
+		
+		</div>
+		
+		
+		<div class="row" >
+			<div class="col-Lg-3" style="padding-left:15px">
+				<a th:href= "@{/students/new}" class= "btn btn-primary btn-sm mb-3"> Add Student</a>
+			</div>
+		
+		</div>
+		
+		
+		
+		
+					
+			<!--Popup message-->
+			
+<!--Now print if successMessage is true-->			
+<div style="margin-right: 920px;" id="success-message" th:if="${session.successMessage}" class="alert alert-success" role="alert">
+    <p th:text="${session.successMessage}"></p>
+</div>
+
+
+<!-- to check if session.successMessage are true or not -->
+<div id="success-message">
+		
+	<div th:if="${session.successMessage}">
+    	<input type="hidden" id="showPopup" th:value="true" />
+	</div>
+
+</div>
+
+			<!--Popup message-->
+		
+		
+		<table class = "table table-striped table-bordered"style="background-color: rgba(255, 225, 225, .5);">
+			
+			<thead class= "table-dark">
+				<tr>  
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email</th>
+					<th>College Name</th>
+					<th style= "text-align:center;">Actions</th>
+					
+				</tr> 
+			</thead>
+			
+			<tbody>
+				<tr th:each= "student: ${students}" style="font-weight: bold">
+					<td th:text = "${student.firstName}">
+					<td th:text = "${student.lastName}">
+					<td th:text = "${student.email}">
+					<td th:text = "${student.collegeName}">
+					
+					<td style= "text-align:center">
+						<a th:href="@{/students/edit/{id}(id=${student.id})}"
+						class="btn btn-primary" style="opacity:.9;font-size:15px;">
+						Update</a>	
+						
+						<a th:href="@{/students/{id}(id=${student.id})}"
+						class="btn btn-danger" style="opacity:.9;font-size:15px;">
+						Delete</a>					
+					</td>
+					
+				</tr>
+			</tbody>
+			
+			
+		</table>
+	
+	</div>
+	
+	
+		
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Function to hide the success message after 5 seconds
+        function hideSuccessMessage() {
+            var successMessageElement = document.getElementById('success-message');
+            if (successMessageElement) {
+                successMessageElement.style.display = 'none';
+                // Reset the successMessage in the session
+                fetch('/resetSuccessMessage', {
+                    method: 'POST'
+                });
+            }
+        }
+
+        // Call the hideSuccessMessage function after 5 seconds (5000 milliseconds)
+        setTimeout(hideSuccessMessage, 2000);
+
+        // Check if the showPopup flag is true and display the popup accordingly
+        var showPopup = document.getElementById('showPopup').value;
+        if (showPopup === "true") {
+            var successMessageElement = document.getElementById('success-message');
+            successMessageElement.style.display = 'block';
+        }
+    });
+</script>
+
+</body>
+</html>
