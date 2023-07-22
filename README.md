@@ -1,6 +1,6 @@
 # Student-Management-System-SpringBoot
 
-<strong><bold>Used Gradle build automation tool</bold></strong>
+* <strong><bold>Used Gradle build automation tool</bold></strong>
 
 * LIST OF STUDENTS
 
